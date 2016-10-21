@@ -19,6 +19,7 @@ class GroupChannelListViewController: UIViewController, UITableViewDelegate, UIT
     private var editableChannel: Bool = false
     private var groupChannelListQuery: SBDGroupChannelListQuery?
     private var typingAnimationChannelList: [String] = []
+    private var channelUrl: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +97,8 @@ class GroupChannelListViewController: UIViewController, UITableViewDelegate, UIT
             
             for channel in channels! {
                 self.channels.append(channel)
+                print("adsdf")
+                self.channelUrl =  channel.channelUrl
             }
             
             DispatchQueue.main.async {
@@ -185,7 +188,10 @@ class GroupChannelListViewController: UIViewController, UITableViewDelegate, UIT
         tableView.deselectRow(at: indexPath, animated: false)
         if self.editableChannel == false {
             let vc = GroupChannelChattingViewController()
-            vc.groupChannel = self.channels[indexPath.row]
+//            vc.groupChannel = self.channels[indexPath.row]
+            SBDGroupChannel.getWithUrl(channelUrl, completionHandler: { (channel, error) in
+                vc.groupChannel = channel
+            })
             self.present(vc, animated: false, completion: nil)
         }
     }
