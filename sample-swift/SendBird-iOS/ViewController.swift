@@ -186,7 +186,7 @@ class ViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
-   
+    // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == self.userIdTextField {
             self.userIdLineView.backgroundColor = Constants.textFieldLineColorSelected()
